@@ -1,0 +1,23 @@
+// 公共部分代码
+.dis-none{
+  display:none;
+}
+.dis-block{
+  display:block;
+}
+.dis-inline{
+  display:inline-block;
+}
+
+
+html{
+    height: 100%;
+    margin: 0 auto;
+}
+body{
+    width: 100%;
+    height: 100%;
+}
+.test-flex {
+	display: flex;
+}
