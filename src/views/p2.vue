@@ -53,7 +53,32 @@
       var wallMaterial = new p2.Material();
       init();
       animate();
+      window.addEventListener('deviceorientation', handleOrientation, false);
 
+      function handleOrientation(event) {
+        var absolute = event.absolute;
+        var alpha    = event.alpha;
+        var beta     = event.beta;
+        var gamma    = event.gamma;
+        console.log(`absolute=${absolute}`);
+        console.log(`alpha=${alpha}`);
+        console.log(`beta=${beta}`);
+        console.log(`gamma=${gamma}`);
+
+        if (gamma > 10) {
+          circleGroups.forEach((item) => {
+            item.velocity = [100, 0];
+          })
+        } else if (gamma < -10) {
+          circleGroups.forEach((item) => {
+            item.velocity = [-100, 0];
+          })
+        } else {
+          circleGroups.forEach((item) => {
+            item.velocity = [0, 0];
+          })
+        }
+      }
       function createCircleGroup() {
         var circlePositions = [[300, -50], [470, -150], [180, -120], 
         [100, -50], [370, -159], [480, -20],
@@ -223,11 +248,11 @@
       }
 
       world.on('beginContact', function (evt){
-        console.log(evt);
+        // console.log(evt);
       });
 
       world.on('endContact', function(evt) {
-        console.log(evt);
+        // console.log(evt);
       });
     },
 
