@@ -65,17 +65,17 @@
         console.log(`beta=${beta}`);
         console.log(`gamma=${gamma}`);
 
-        if (gamma > 10) {
+        if (gamma > 0) {
           circleGroups.forEach((item) => {
-            item.velocity = [100, 0];
+            item.velocity = [gamma * 2, -100];
           })
-        } else if (gamma < -10) {
+        } else if (gamma < 0) {
           circleGroups.forEach((item) => {
-            item.velocity = [-100, 0];
+            item.velocity = [gamma * 2, -100];
           })
         } else {
           circleGroups.forEach((item) => {
-            item.velocity = [0, 0];
+            item.velocity = [0, -100];
           })
         }
       }
@@ -89,7 +89,8 @@
           var circleB = new p2.Body({
             mass: 50,
             position: circlePositions[i],
-            velocity: [0, -100]
+            velocity: [0, -100],
+            ccdSpeedThreshold: 1
           });
           circleB.addShape(circleS);
           world.addBody(circleB);
@@ -99,22 +100,24 @@
 
       function createWall() {
         var wallLeft = new p2.Box({
-          width: 1,
+          width: 30,
           height: 1000
         });
         wallLeftBody = new p2.Body({
           mass: 0,
           position: [0, -500],
-          allowSleep: true
+          allowSleep: true,
+          ccdSpeedThreshold: 1
         });
         var wallRight = new p2.Box({
-          width: 1,
+          width: 30,
           height: 1000
         });
         wallRightBody = new p2.Body({
           mass: 0,
           position: [702, -500],
-          allowSleep: true
+          allowSleep: true,
+          ccdSpeedThreshold: 1
         });
         wallLeft.material = wallMaterial;
         wallRight.material = wallMaterial;
@@ -203,7 +206,7 @@
         ctx.save();
         ctx.translate(x, y);        // Translate to the center of the box
         ctx.rotate(wallLeftBody.angle);  // Rotate to the box body frame
-        ctx.rect(-1/2, -1000/2, 1, 1000);
+        ctx.rect(-30/2, -1000/2, 30, 1000);
         ctx.stroke();
         ctx.restore();
 
@@ -231,7 +234,7 @@
         // Draw all bodies
         drawCircle();
         // drawPlane();
-        // drawWall();
+        drawWall();
         // Restore transform
         ctx.restore();
       }

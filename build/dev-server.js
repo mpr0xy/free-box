@@ -57,7 +57,7 @@ app.use(hotMiddleware)
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
-module.exports = app.listen(port, function (err) {
+module.exports = app.listen(port, '192.168.1.12', function (err) {
   if (err) {
     console.log(err)
     return
